@@ -2,10 +2,20 @@ class BallFactory {
     constructor() {
         this.createBall = function (type) {
             let ball
-            if (type === 'soccer' || type === 'football') {
-                ball = new Football();
-            } else if (type === 'basketball') {
-                ball = new Basketball();
+       
+            switch(type){
+                case 'football':
+                     ball = new Football();
+                     break;
+                case 'soccer':
+                    ball = new Football();
+                    break
+                case 'basketball':
+                        ball = new Basketball();
+                        break;
+                case 'tennisball':
+                    ball = new TennisBall();
+                    break;
             }
             ball.roll = function () {
                 return `${this._type} is rolling`;
@@ -17,10 +27,8 @@ class BallFactory {
 
 class Football {
     constructor() {
-        this._type = 'football'
-        this.kick = function(){
-            return 'You kicked the football'
-        }
+        this._type = 'football';
+        this.kick = () => 'you kicked the ball';
     }
 }
 
@@ -33,12 +41,20 @@ class Basketball{
     }
 }
 
+class TennisBall {
+    constructor(){
+        this._type = 'tennisball'
+        this.swing = () => { return this._type };
+    }
+}
+
 const factory = new BallFactory();
 
 const myFootball = new factory.createBall('football');
 const myBasketball = new factory.createBall('basketball')
+const myTennis = new factory.createBall('tennisball')
 
 console.log(myFootball.roll()); 
-console.log(myBasketball.roll()); 
 console.log(myFootball.kick()); 
 console.log(myBasketball.bounce());
+console.log(myTennis.swing())
